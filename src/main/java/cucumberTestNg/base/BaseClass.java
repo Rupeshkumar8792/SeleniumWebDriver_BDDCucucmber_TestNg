@@ -5,6 +5,7 @@ import java.time.Duration;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import cucumberTestNg.utility.Util;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class BaseClass 
@@ -21,13 +22,17 @@ public class BaseClass
 	
 	public static void launchBrowser()
 	{
-		WebDriverManager.chromedriver().setup();
-		driver = new ChromeDriver();
-		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(TIMEOUT));
-		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(TIMEOUT));
+		if (Util.readProperties("browser").equalsIgnoreCase("chrome")) 
+		{
+			WebDriverManager.chromedriver().setup();
+			driver = new ChromeDriver();
+			driver.manage().window().maximize();
+			driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(TIMEOUT));
+			driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(TIMEOUT));
+			
+			webDriver.set(driver);
+		}
 		
-		webDriver.set(driver);
 	}
 	
 	public static void openApplication(String url) 
