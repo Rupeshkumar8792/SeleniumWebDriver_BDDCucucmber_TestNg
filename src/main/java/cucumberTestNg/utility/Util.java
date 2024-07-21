@@ -1,9 +1,13 @@
 package cucumberTestNg.utility;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
+
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 
 import cucumberTestNg.base.BaseClass;
 
@@ -35,6 +39,12 @@ public class Util extends BaseClass
 			e.printStackTrace();
 		}
 		
-		return path;
+		return prop.getProperty(key);
+	}
+	
+	public static File takeScreenshot() 
+	{
+		return ((TakesScreenshot)webDriver.get()).getScreenshotAs(OutputType.FILE);
+		
 	}
 }
